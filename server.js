@@ -3,7 +3,7 @@ var io = require('socket.io')(process.env.PORT || 52300);
 // Custom classes
 var Player = require('./Classes/Player');
 
-console.log('Server has started');
+console.log('Server has started on HEROKU');
 
 const players = [];
 const sockets = [];
