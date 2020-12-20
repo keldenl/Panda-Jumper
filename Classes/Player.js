@@ -5,6 +5,6 @@ module.exports = class Player {
     constructor() {
         this.username = '';
         this.id = shortID.generate();
-        this.position = new Vector2();
+        this.position = new Vector2(0, 1);
     }
 }

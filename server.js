@@ -2,12 +2,16 @@ var io = require('socket.io')(process.env.PORT || 52300);
 
 // Custom classes
 var Player = require('./Classes/Player');
+var { Map, PlatformBuilder } = require('./Classes/Map');
 
-console.log('Server has started on HEROKU');
+console.log('Server has started');
 
 const players = [];
 const sockets = [];
-const defaultMap = '3.55k-1.84l-2.76k-.61l2.11k.89l';
+// const defaultMap = '3.55k-1.84l-2.76k-.61l2.11k.89l';
+const groundY = -0.55;
+const defaultPlatforms = new PlatformBuilder([3.55, groundY + 1.5, -2.76, groundY + 3, 2.11, groundY + 4.5, 5, groundY + 6]);
+const defaultMap = new Map(defaultPlatforms.GetPlatforms());
 
 io.on('connection', (socket) => {
     console.log('A player has connected to the server');
@@ -32,7 +36,8 @@ io.on('connection', (socket) => {
     }
 
     // tell me about the map
-    socket.emit('mapLoad', defaultMap);
+    socket.emit('mapLoad', defaultMap.ToString());
+    console.log(defaultMap.ToString());
 
     // Player Position
     socket.on('updateMyPosition', (data) => {
